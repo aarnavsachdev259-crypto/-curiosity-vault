@@ -1,4 +1,4 @@
-import type { Quiz } from './types';
+import type { Quiz } from './types.js';
 
 export const quizzes: Quiz[] = [
   { id:'attention', title:'How Attention Tricks You', subtitle:'Four questions about what your brain notices—and what it skips.', category:'Psychology', questions:[

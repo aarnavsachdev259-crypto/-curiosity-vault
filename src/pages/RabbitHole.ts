@@ -1,6 +1,6 @@
-import { stories } from '../data/stories';
-import { markRabbitDiscovered } from '../lib/storage';
-import { navigate } from '../lib/router';
+import { stories } from '../data/stories.js';
+import { markRabbitDiscovered } from '../lib/storage.js';
+import { navigate } from '../lib/router.js';
 
 export function renderRabbit(id: string) {
   const root=stories.find(s=>s.slug===id) || stories[0]; const chain=root.rabbitHole.map(slug=>stories.find(s=>s.slug===slug)).filter(Boolean) as typeof stories;

@@ -1,16 +1,16 @@
-import { getRoute, navigate } from './lib/router';
-import { renderNav, bindNav } from './components/Nav';
-import { renderFooter } from './components/Footer';
-import { renderHome, bindHome } from './pages/Home';
-import { renderVault, bindVault } from './pages/Vault';
-import { renderStory, bindStory } from './pages/Story';
-import { renderQuizzes, bindQuizzes } from './pages/Quizzes';
-import { renderQuiz, bindQuiz } from './pages/Quiz';
-import { renderSaved, bindSaved } from './pages/Saved';
-import { renderRabbit, bindRabbit } from './pages/RabbitHole';
-import { renderNotFound, bindNotFound } from './pages/NotFound';
-import { stories } from './data/stories';
-import { quizzes } from './data/quizzes';
+import { getRoute, navigate } from './lib/router.js';
+import { renderNav, bindNav } from './components/Nav.js';
+import { renderFooter } from './components/Footer.js';
+import { renderHome, bindHome } from './pages/Home.js';
+import { renderVault, bindVault } from './pages/Vault.js';
+import { renderStory, bindStory } from './pages/Story.js';
+import { renderQuizzes, bindQuizzes } from './pages/Quizzes.js';
+import { renderQuiz, bindQuiz } from './pages/Quiz.js';
+import { renderSaved, bindSaved } from './pages/Saved.js';
+import { renderRabbit, bindRabbit } from './pages/RabbitHole.js';
+import { renderNotFound, bindNotFound } from './pages/NotFound.js';
+import { stories } from './data/stories.js';
+import { quizzes } from './data/quizzes.js';
 
 function renderApp(){
   const route=getRoute(); const app=document.getElementById('app')!;

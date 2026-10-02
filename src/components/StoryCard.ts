@@ -1,7 +1,7 @@
-import type { Story } from '../data/types';
-import { toggleSaved, getSaved } from '../lib/storage';
-import { navigate } from '../lib/router';
-import { visualSvg } from './Visual';
+import type { Story } from '../data/types.js';
+import { toggleSaved, getSaved } from '../lib/storage.js';
+import { navigate } from '../lib/router.js';
+import { visualSvg } from './Visual.js';
 
 export function renderStoryCard(story: Story, compact=false) {
   const saved = getSaved().has(story.slug);

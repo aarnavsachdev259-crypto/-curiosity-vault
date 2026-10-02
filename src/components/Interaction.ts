@@ -1,4 +1,4 @@
-import type { StoryInteraction } from '../data/types';
+import type { StoryInteraction } from '../data/types.js';
 
 export function renderInteraction(i: StoryInteraction) {
   if (i.type === 'multiple-choice' || i.type === 'true-false') {

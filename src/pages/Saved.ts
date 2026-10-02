@@ -1,7 +1,7 @@
-import { stories } from '../data/stories';
-import { getSaved } from '../lib/storage';
-import { renderStoryCard, bindStoryCards } from '../components/StoryCard';
-import { navigate } from '../lib/router';
+import { stories } from '../data/stories.js';
+import { getSaved } from '../lib/storage.js';
+import { renderStoryCard, bindStoryCards } from '../components/StoryCard.js';
+import { navigate } from '../lib/router.js';
 
 export function renderSaved() {
   const saved=getSaved(); const items=stories.filter(s=>saved.has(s.slug));

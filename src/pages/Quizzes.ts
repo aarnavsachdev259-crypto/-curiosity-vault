@@ -1,7 +1,7 @@
-import { quizzes } from '../data/quizzes';
-import { getProgress } from '../lib/storage';
-import { navigate } from '../lib/router';
-import { visualSvg } from '../components/Visual';
+import { quizzes } from '../data/quizzes.js';
+import { getProgress } from '../lib/storage.js';
+import { navigate } from '../lib/router.js';
+import { visualSvg } from '../components/Visual.js';
 
 export function renderQuizzes() {
   const { quizzes: completed } = getProgress();

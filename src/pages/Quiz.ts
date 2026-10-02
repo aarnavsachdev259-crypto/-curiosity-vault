@@ -1,6 +1,6 @@
-import { quizzes } from '../data/quizzes';
-import { markQuizCompleted } from '../lib/storage';
-import { navigate } from '../lib/router';
+import { quizzes } from '../data/quizzes.js';
+import { markQuizCompleted } from '../lib/storage.js';
+import { navigate } from '../lib/router.js';
 
 export function renderQuiz(id: string) {
   const quiz = quizzes.find(q=>q.id===id);

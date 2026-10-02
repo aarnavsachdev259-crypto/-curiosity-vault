@@ -1,5 +1,5 @@
-import { navigate } from '../lib/router';
-import { getProgress } from '../lib/storage';
+import { navigate } from '../lib/router.js';
+import { getProgress } from '../lib/storage.js';
 
 export function renderNav(active: string) {
   const { explored } = getProgress();

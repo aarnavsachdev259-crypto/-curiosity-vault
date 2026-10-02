@@ -1,8 +1,8 @@
-import { stories } from '../data/stories';
-import { getProgress } from '../lib/storage';
-import { navigate } from '../lib/router';
-import { renderStoryCard, bindStoryCards } from '../components/StoryCard';
-import { visualSvg } from '../components/Visual';
+import { stories } from '../data/stories.js';
+import { getProgress } from '../lib/storage.js';
+import { navigate } from '../lib/router.js';
+import { renderStoryCard, bindStoryCards } from '../components/StoryCard.js';
+import { visualSvg } from '../components/Visual.js';
 
 export function renderHome() {
   const feature = stories[12];
