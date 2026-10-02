@@ -1,0 +1,19 @@
+{
+  "name": "the-curiosity-vault",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc --pretty false && node scripts/copy-static.mjs",
+    "test": "npm run build && node scripts/test-content.mjs && node scripts/test-server.mjs",
+    "test:browser": "node scripts/test-browser-harness.mjs",
+    "test:all": "npm test && npm run test:browser"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "description": "An interactive editorial vault of fascinating stories, puzzles and rabbit holes.",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
