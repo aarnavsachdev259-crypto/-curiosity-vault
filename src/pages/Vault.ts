@@ -1,6 +1,6 @@
-import { stories, categories } from '../data/stories.js';
-import { renderStoryCard, bindStoryCards } from '../components/StoryCard.js';
-import { navigate } from '../lib/router.js';
+import { stories, categories } from '../data/stories';
+import { renderStoryCard, bindStoryCards } from '../components/StoryCard';
+import { navigate } from '../lib/router';
 
 export function renderVault() {
   const params = new URLSearchParams(location.search);

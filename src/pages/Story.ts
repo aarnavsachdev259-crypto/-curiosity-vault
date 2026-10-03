@@ -1,9 +1,9 @@
-import { stories } from '../data/stories.js';
-import { getSaved, toggleSaved, markExplored } from '../lib/storage.js';
-import { navigate } from '../lib/router.js';
-import { visualSvg } from '../components/Visual.js';
-import { renderInteraction, bindInteraction } from '../components/Interaction.js';
-import { renderStoryCard, bindStoryCards } from '../components/StoryCard.js';
+import { stories } from '../data/stories';
+import { getSaved, toggleSaved, markExplored } from '../lib/storage';
+import { navigate } from '../lib/router';
+import { visualSvg } from '../components/Visual';
+import { renderInteraction, bindInteraction } from '../components/Interaction';
+import { renderStoryCard, bindStoryCards } from '../components/StoryCard';
 
 export function renderStory(slug: string) {
   const story = stories.find(s=>s.slug===slug);
@@ -22,7 +22,7 @@ export function renderStory(slug: string) {
   </div></main>`;
 }
 
-export function bindStory(story?: import('../data/types.js').Story) {
+export function bindStory(story?: import('../data/types').Story) {
   if (!story) { document.querySelector('a[href="/vault"]')?.addEventListener('click', e=>{e.preventDefault();navigate('/vault');}); return; }
   bindInteraction(story.interaction);
   const save = document.querySelector<HTMLButtonElement>('[data-story-save]');

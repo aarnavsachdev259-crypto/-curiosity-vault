@@ -10,3 +10,23 @@
 .visual-svg .ghost { fill:none; stroke:rgba(244,242,236,.14); stroke-width:1; }
 .visual-svg .warm { fill:none; stroke:rgba(200,169,107,.46); stroke-width:1.2; }
 .visual-svg .dot { fill:#c8a96b; }
+
+/* Story-specific cover language: one visual system, thirty distinct subjects. */
+.visual-svg { background:#101012; }
+.visual-svg .ink, .visual-svg .crowd, .visual-svg .choice, .visual-svg .memory,
+.visual-svg .repeat, .visual-svg .loop, .visual-svg .chart, .visual-svg .lab,
+.visual-svg .door, .visual-svg .phone, .visual-svg .ship, .visual-svg .mountain,
+.visual-svg .signal, .visual-svg .manuscript, .visual-svg .map, .visual-svg .tv,
+.visual-svg .cipher, .visual-svg .dance, .visual-svg .wave, .visual-svg .tank,
+.visual-svg .climate, .visual-svg .impact, .visual-svg .gas, .visual-svg .micro,
+.visual-svg .ice, .visual-svg .codex, .visual-svg .sound, .visual-svg .city,
+.visual-svg .timeline, .visual-svg .ocean { color:#f4f2ec; }
+.visual-svg path, .visual-svg rect, .visual-svg circle, .visual-svg ellipse { fill:none; stroke:rgba(244,242,236,.24); stroke-width:2; vector-effect:non-scaling-stroke; }
+.visual-svg .accent, .visual-svg .accent-fill { stroke:#c8a96b; }
+.visual-svg .accent-fill { fill:rgba(200,169,107,.18); }
+.visual-svg .word { fill:#c8a96b; font:600 54px Inter,system-ui,sans-serif; letter-spacing:6px; }
+.visual-svg .word.small { font-size:42px; fill:#f4f2ec; opacity:.82; }
+.visual-svg .word.tiny { font-size:30px; fill:#c8a96b; opacity:.65; }
+.visual-svg .code { fill:#c8a96b; font:500 27px ui-monospace,SFMono-Regular,monospace; letter-spacing:3px; }
+.visual-svg .art-label { fill:rgba(244,242,236,.42); font:500 12px Inter,system-ui,sans-serif; letter-spacing:2px; }
+.visual-svg .accent-fill + path { stroke:rgba(244,242,236,.28); }
