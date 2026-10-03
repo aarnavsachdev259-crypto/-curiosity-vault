@@ -1,9 +1,9 @@
-import { stories } from '../data/stories';
-import { getSaved, toggleSaved, markExplored } from '../lib/storage';
-import { navigate } from '../lib/router';
-import { visualSvg } from '../components/Visual';
-import { renderInteraction, bindInteraction } from '../components/Interaction';
-import { renderStoryCard, bindStoryCards } from '../components/StoryCard';
+import { stories } from '../data/stories.js';
+import { getSaved, toggleSaved, markExplored } from '../lib/storage.js';
+import { navigate } from '../lib/router.js';
+import { visualSvg } from '../components/Visual.js';
+import { renderInteraction, bindInteraction } from '../components/Interaction.js';
+import { renderStoryCard, bindStoryCards } from '../components/StoryCard.js';
 
 export function renderStory(slug: string) {
   const story = stories.find(s=>s.slug===slug);
