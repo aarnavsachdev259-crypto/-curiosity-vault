@@ -6,7 +6,9 @@ import { visualSvg } from './Visual.js';
 export function renderStoryCard(story: Story, compact=false) {
   const saved = getSaved().has(story.slug);
   return `<article class="story-card ${compact?'compact':''}" data-story-card="${story.slug}">
-    <a class="story-visual art-${story.visual}" href="/story/${story.slug}" aria-label="Open ${story.title}">${visualSvg(story.visual, story.category.toUpperCase())}</a>
+    <a class="story-visual art-${story.visual}" href="/story/${story.slug}" aria-label="Open ${story.title}">${visualSvg(story.visual, story.category.toUpperCase(), story.slug)
+      
+    }</a>
     <div class="card-body">
       <div class="card-meta"><span>${story.category}</span><span>${story.minutes} min · ${story.curiosity}/10</span></div>
       <h3 class="card-title"><a href="/story/${story.slug}">${story.title}</a></h3>

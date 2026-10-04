@@ -1,12 +1,185 @@
-export function visualSvg(kind: string, label = 'ARCHIVE VISUAL') {
-  const shapes: Record<string, string> = {
-    psych: `<circle class="ghost" cx="50%" cy="50%" r="31%"/><circle class="warm" cx="50%" cy="50%" r="17%"/><path class="ghost" d="M12% 72% Q50% 10% 88% 72%"/><circle class="dot" cx="50%" cy="18%" r="4"/>`,
-    science: `<path class="ghost" d="M10% 70% C28% 25%,72% 25%,90% 70%"/><path class="warm" d="M18% 77% Q50% 20% 82% 77%"/><circle class="dot" cx="74%" cy="31%" r="4"/><circle class="ghost" cx="33%" cy="52%" r="9%"/>`,
-    mystery: `<rect class="ghost" x="18%" y="18%" width="64%" height="64%" rx="18"/><path class="warm" d="M28% 68% L50% 30% L72% 68% Z"/><circle class="dot" cx="50%" cy="56%" r="4"/>`,
-    internet: `<rect class="ghost" x="22%" y="18%" width="56%" height="60%" rx="12"/><path class="warm" d="M30% 34% H70% M30% 48% H60% M30% 62% H52%"/><circle class="dot" cx="71%" cy="62%" r="4"/>`,
-    history: `<path class="ghost" d="M22% 76% L50% 22% L78% 76%"/><path class="warm" d="M30% 70% H70% M36% 58% H64% M42% 46% H58%"/><circle class="dot" cx="50%" cy="22%" r="4"/>`,
-    coincidence: `<circle class="ghost" cx="42%" cy="50%" r="24%"/><circle class="warm" cx="58%" cy="50%" r="24%"/><path class="ghost" d="M42% 30% L58% 70% M58% 30% L42% 70%"/><circle class="dot" cx="50%" cy="50%" r="4"/>`
-  };
-  const content = shapes[kind] ?? shapes.mystery;
-  return `<svg class="visual-svg" viewBox="0 0 800 520" role="img" aria-label="${label}">${content}<text x="6%" y="90%">${label}</text></svg>`;
+export function visualSvg(
+  kind: string,
+  label = 'ARCHIVE VISUAL',
+  slug = ''
+) {
+  const key = slug.toLowerCase();
+
+  // Specific visuals for the stories where the concept is obvious.
+  if (key.includes('stroop')) {
+    return `<svg class="visual-svg" viewBox="0 0 800 520" role="img" aria-label="${label}">
+      <rect class="visual-bg" x="0" y="0" width="800" height="520" rx="28"/>
+      <text class="word" x="105" y="145">RED</text>
+      <text class="word warm-text" x="390" y="145">BLUE</text>
+      <text class="word" x="205" y="245">GREEN</text>
+      <text class="word warm-text" x="505" y="245">YELLOW</text>
+      <text class="word small" x="105" y="350">BLUE</text>
+      <text class="word" x="430" y="350">RED</text>
+      <path class="accent-line" d="M90 410 C210 350 290 470 410 405 S620 355 710 425"/>
+      <text class="art-label" x="92" y="455">WORD ≠ COLOR</text>
+    </svg>`;
+  }
+
+  if (key.includes('invisible-gorilla')) {
+    return `<svg class="visual-svg" viewBox="0 0 800 520" role="img" aria-label="${label}">
+      <rect class="visual-bg" x="0" y="0" width="800" height="520" rx="28"/>
+      <g class="crowd">
+        <circle cx="125" cy="155" r="26"/><circle cx="210" cy="205" r="26"/>
+        <circle cx="300" cy="145" r="26"/><circle cx="395" cy="210" r="26"/>
+        <circle cx="485" cy="150" r="26"/><circle cx="580" cy="215" r="26"/>
+        <circle cx="675" cy="155" r="26"/>
+        <circle cx="165" cy="330" r="26"/><circle cx="265" cy="370" r="26"/>
+        <circle cx="365" cy="315" r="26"/><circle cx="470" cy="370" r="26"/>
+        <circle cx="575" cy="320" r="26"/><circle cx="665" cy="375" r="26"/>
+      </g>
+      <g class="hidden-figure">
+        <circle cx="405" cy="120" r="25"/>
+        <path d="M380 145 L365 275 L390 350 M430 145 L450 275 L425 350"/>
+        <path d="M365 195 L320 245 M445 195 L490 245"/>
+      </g>
+      <circle class="focus-ring" cx="405" cy="120" r="52"/>
+      <text class="art-label" x="92" y="465">DID YOU NOTICE?</text>
+    </svg>`;
+  }
+
+  if (key.includes('mary-celeste')) {
+    return `<svg class="visual-svg" viewBox="0 0 800 520" role="img" aria-label="${label}">
+      <rect class="visual-bg" x="0" y="0" width="800" height="520" rx="28"/>
+      <path class="ocean" d="M55 350 Q150 315 245 350 T435 350 T625 350 T745 350"/>
+      <path class="ocean faint" d="M55 390 Q150 355 245 390 T435 390 T625 390 T745 390"/>
+      <path class="ship" d="M225 300 L600 300 L530 370 L285 370 Z"/>
+      <path class="ship" d="M330 300 L330 125 M475 300 L475 150"/>
+      <path class="sail" d="M335 135 L455 210 L335 245 Z"/>
+      <path class="sail" d="M480 160 L560 225 L480 250 Z"/>
+      <circle class="moon" cx="630" cy="115" r="42"/>
+      <text class="art-label" x="92" y="465">A SHIP WITHOUT ITS CREW</text>
+    </svg>`;
+  }
+
+  // Psychology / perception
+  if (kind === 'psychology' || kind === 'human-behaviour') {
+    return `<svg class="visual-svg" viewBox="0 0 800 520" role="img" aria-label="${label}">
+      <rect class="visual-bg" x="0" y="0" width="800" height="520" rx="28"/>
+      <path class="brain-line" d="M300 350 C220 310 230 180 315 150 C355 85 465 105 490 165 C575 170 610 285 535 335 C500 400 390 410 300 350Z"/>
+      <path class="brain-detail" d="M335 175 C390 220 330 245 390 275 S370 345 430 365"/>
+      <path class="brain-detail" d="M440 150 C400 205 480 210 440 260 S510 315 470 365"/>
+      <circle class="warm" cx="580" cy="175" r="12"/>
+      <circle class="warm" cx="625" cy="225" r="7"/>
+      <circle class="warm" cx="570" cy="275" r="9"/>
+      <text class="art-label" x="92" y="465">THE MIND AT WORK</text>
+    </svg>`;
+  }
+
+  // Science / experiments
+  if (kind === 'science') {
+    return `<svg class="visual-svg" viewBox="0 0 800 520" role="img" aria-label="${label}">
+      <rect class="visual-bg" x="0" y="0" width="800" height="520" rx="28"/>
+      <path class="lab" d="M350 105 L350 250 L265 390 Q255 415 290 415 L510 415 Q545 415 535 390 L450 250 L450 105"/>
+      <path class="warm-fill" d="M290 335 Q400 305 510 335 L535 395 Q520 415 490 415 L310 415 Q275 415 265 395Z"/>
+      <circle class="bubble" cx="335" cy="355" r="9"/>
+      <circle class="bubble" cx="390" cy="330" r="6"/>
+      <circle class="bubble" cx="445" cy="365" r="11"/>
+      <path class="atom" d="M150 155 C210 95 280 160 230 220 C180 275 115 210 150 155Z"/>
+      <ellipse class="atom" cx="195" cy="185" rx="85" ry="28"/>
+      <circle class="dot" cx="195" cy="185" r="8"/>
+      <text class="art-label" x="92" y="465">OBSERVE · TEST · DISCOVER</text>
+    </svg>`;
+  }
+
+  // Internet / digital culture
+  if (kind === 'internet' || kind === 'digital') {
+    return `<svg class="visual-svg" viewBox="0 0 800 520" role="img" aria-label="${label}">
+      <rect class="visual-bg" x="0" y="0" width="800" height="520" rx="28"/>
+      <rect class="browser" x="105" y="95" width="590" height="330" rx="18"/>
+      <circle class="browser-dot" cx="135" cy="125" r="6"/>
+      <circle class="browser-dot" cx="158" cy="125" r="6"/>
+      <circle class="browser-dot" cx="181" cy="125" r="6"/>
+      <rect class="address" x="220" y="112" width="300" height="26" rx="13"/>
+      <path class="network" d="M190 220 L330 285 L470 205 L610 285 L520 360 L330 285"/>
+      <circle class="node" cx="190" cy="220" r="13"/>
+      <circle class="node" cx="330" cy="285" r="13"/>
+      <circle class="node" cx="470" cy="205" r="13"/>
+      <circle class="node" cx="610" cy="285" r="13"/>
+      <circle class="node" cx="520" cy="360" r="13"/>
+      <text class="code" x="150" y="395">01001001 00110010</text>
+      <text class="art-label" x="92" y="465">THE DIGITAL RABBIT HOLE</text>
+    </svg>`;
+  }
+
+  // History / documents
+  if (kind === 'history') {
+    return `<svg class="visual-svg" viewBox="0 0 800 520" role="img" aria-label="${label}">
+      <rect class="visual-bg" x="0" y="0" width="800" height="520" rx="28"/>
+      <rect class="document" x="220" y="75" width="360" height="350" rx="8"/>
+      <path class="document-line" d="M265 145 H530 M265 185 H505 M265 225 H535 M265 265 H470"/>
+      <path class="map" d="M105 335 C170 270 195 350 245 300 M565 170 C620 115 680 180 705 125"/>
+      <circle class="stamp" cx="515" cy="340" r="48"/>
+      <text class="stamp-text" x="483" y="346">ARCHIVE</text>
+      <text class="art-label" x="92" y="465">TRACES FROM ANOTHER TIME</text>
+    </svg>`;
+  }
+
+  // Mysteries
+  if (kind === 'mystery' || kind === 'mysteries') {
+    return `<svg class="visual-svg" viewBox="0 0 800 520" role="img" aria-label="${label}">
+      <rect class="visual-bg" x="0" y="0" width="800" height="520" rx="28"/>
+      <path class="evidence-line" d="M145 120 L330 235 L530 135 L665 300 L420 385 L245 330 Z"/>
+      <circle class="evidence" cx="145" cy="120" r="15"/>
+      <circle class="evidence" cx="330" cy="235" r="15"/>
+      <circle class="evidence" cx="530" cy="135" r="15"/>
+      <circle class="evidence" cx="665" cy="300" r="15"/>
+      <circle class="evidence" cx="420" cy="385" r="15"/>
+      <rect class="case-file" x="275" y="165" width="250" height="140" rx="5"/>
+      <text class="case-text" x="315" y="215">CASE</text>
+      <text class="case-text" x="315" y="255">UNKNOWN</text>
+      <text class="art-label" x="92" y="465">THE EVIDENCE DOESN'T FIT</text>
+    </svg>`;
+  }
+
+  // Coincidences / patterns
+  if (kind === 'coincidence') {
+    return `<svg class="visual-svg" viewBox="0 0 800 520" role="img" aria-label="${label}">
+      <rect class="visual-bg" x="0" y="0" width="800" height="520" rx="28"/>
+      <circle class="orbit" cx="400" cy="260" r="155"/>
+      <circle class="orbit" cx="400" cy="260" r="95"/>
+      <circle class="dot" cx="245" cy="260" r="8"/>
+      <circle class="dot" cx="400" cy="105" r="8"/>
+      <circle class="dot" cx="555" cy="260" r="8"/>
+      <circle class="dot" cx="400" cy="415" r="8"/>
+      <path class="pattern" d="M245 260 L400 105 L555 260 L400 415 Z"/>
+      <text class="art-label" x="92" y="465">WHEN RANDOMNESS LOOKS LIKE DESIGN</text>
+    </svg>`;
+  }
+
+  // Fallback: deliberately varied geometric composition.
+  const seed = [...key].reduce((n, c) => n + c.charCodeAt(0), 0);
+  const variant = seed % 4;
+
+  const visuals = [
+    `<rect class="visual-bg" x="0" y="0" width="800" height="520" rx="28"/>
+     <path class="warm-fill" d="M110 390 L240 120 L380 390 Z"/>
+     <circle class="focus-ring" cx="540" cy="245" r="105"/>
+     <circle class="dot" cx="540" cy="245" r="12"/>`,
+    `<rect class="visual-bg" x="0" y="0" width="800" height="520" rx="28"/>
+     <path class="network" d="M130 150 L300 330 L470 135 L660 350"/>
+     <circle class="node" cx="130" cy="150" r="16"/>
+     <circle class="node" cx="300" cy="330" r="16"/>
+     <circle class="node" cx="470" cy="135" r="16"/>
+     <circle class="node" cx="660" cy="350" r="16"/>`,
+    `<rect class="visual-bg" x="0" y="0" width="800" height="520" rx="28"/>
+     <rect class="document" x="175" y="105" width="450" height="290" rx="12"/>
+     <path class="document-line" d="M225 175 H565 M225 225 H510 M225 275 H550 M225 325 H460"/>
+     <circle class="stamp" cx="545" cy="315" r="40"/>`,
+    `<rect class="visual-bg" x="0" y="0" width="800" height="520" rx="28"/>
+     <path class="orbit" d="M145 350 C240 90 560 90 655 350"/>
+     <path class="orbit" d="M190 350 C280 145 520 145 610 350"/>
+     <circle class="warm" cx="400" cy="150" r="22"/>
+     <circle class="dot" cx="245" cy="275" r="8"/>
+     <circle class="dot" cx="555" cy="275" r="8"/>`
+  ];
+
+  return `<svg class="visual-svg" viewBox="0 0 800 520" role="img" aria-label="${label}">
+    ${visuals[variant]}
+    <text class="art-label" x="92" y="465">${label}</text>
+  </svg>`;
 }
