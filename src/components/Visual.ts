@@ -5,6 +5,46 @@ export function visualSvg(
 ) {
   const key = slug.toLowerCase();
 
+  if (key === 'the-bloop') {
+    return `<svg class="visual-svg" viewBox="0 0 800 520" role="img" aria-label="${label}">
+      <rect class="visual-bg" x="0" y="0" width="800" height="520" rx="28"/>
+      <path d="M28 182 Q165 164 300 184 T570 178 T772 185 V520 H28Z" style="fill:#101d27;stroke:none"/>
+      <path d="M28 268 Q160 245 300 270 T570 263 T772 272 V520 H28Z" style="fill:#0b1721;stroke:none"/>
+      <path d="M28 365 Q170 344 310 367 T580 360 T772 370 V520 H28Z" style="fill:#08111a;stroke:none"/>
+      <path d="M55 180 Q155 164 255 180 T455 180 T655 180 T745 180" style="fill:none;stroke:rgba(138,177,192,.34);stroke-width:1.5"/>
+      <path d="M55 268 Q155 252 255 268 T455 268 T655 268 T745 268" style="fill:none;stroke:rgba(138,177,192,.24);stroke-width:1.5"/>
+      <path d="M55 365 Q155 349 255 365 T455 365 T655 365 T745 365" style="fill:none;stroke:rgba(138,177,192,.18);stroke-width:1.5"/>
+      <circle cx="390" cy="310" r="72" style="fill:none;stroke:rgba(200,169,107,.38);stroke-width:1.5"/>
+      <circle cx="390" cy="310" r="126" style="fill:none;stroke:rgba(200,169,107,.25);stroke-width:1.5"/>
+      <circle cx="390" cy="310" r="184" style="fill:none;stroke:rgba(200,169,107,.14);stroke-width:1.5"/>
+      <path d="M72 310 H200 M580 310 H728" style="fill:none;stroke:rgba(200,169,107,.32);stroke-width:1"/>
+      <path d="M86 402 H176 V270 H195 V402 H219 M176 278 L164 292 M176 278 L188 292" style="fill:none;stroke:rgba(200,169,107,.7);stroke-width:2"/>
+      <path d="M220 402 V385 L234 385 V370 L247 370 V395 L263 395 V355 L278 355 V400 L294 400 V374 L309 374 V393 L324 393 V366 L338 366 V400 L354 400 V381 L370 381 V402 H728" style="fill:none;stroke:#c8a96b;stroke-width:2.5"/>
+      <circle cx="390" cy="310" r="5" style="fill:#c8a96b;stroke:none"/>
+      <text class="art-label" x="92" y="465">SOUTH PACIFIC · ACOUSTIC EVENT · 1997</text>
+      <text class="art-label" x="92" y="145">HYDROPHONE ARRAY / DEEP OCEAN</text>
+    </svg>`;
+  }
+
+  if (key === 'the-year-without-a-summer') {
+    return `<svg class="visual-svg" viewBox="0 0 800 520" role="img" aria-label="${label}">
+      <rect class="visual-bg" x="0" y="0" width="800" height="520" rx="28"/>
+      <circle cx="585" cy="160" r="62" style="fill:#5d5b50;fill-opacity:.34;stroke:#c8a96b;stroke-opacity:.35;stroke-width:1.5"/>
+      <circle cx="585" cy="160" r="82" style="fill:none;stroke:rgba(200,169,107,.13);stroke-width:1"/>
+      <path d="M330 308 L382 235 L407 263 L445 170 L474 225 L516 192 L568 308Z" style="fill:#17191a;stroke:rgba(244,242,236,.34);stroke-width:2"/>
+      <path d="M410 258 L445 170 L474 225 L455 216 L443 236 L432 221Z" style="fill:#9a5340;stroke:rgba(200,169,107,.44);stroke-width:1.5"/>
+      <path d="M420 186 C399 159 433 142 416 119 C445 131 459 109 450 86 C484 108 477 130 499 137 C529 146 536 169 518 192 C496 210 462 203 420 186Z" style="fill:#404344;fill-opacity:.84;stroke:rgba(172,179,176,.32);stroke-width:1.5"/>
+      <path d="M386 161 C367 145 381 127 372 111 M495 135 C516 116 507 98 520 82 M466 147 C475 127 465 115 473 101" style="fill:none;stroke:rgba(190,195,188,.22);stroke-width:1.2"/>
+      <path d="M55 308 Q160 289 270 308 T485 308 T745 308 V426 H55Z" style="fill:#111a1e;stroke:none"/>
+      <path d="M55 340 Q160 321 270 340 T485 340 T745 340" style="fill:none;stroke:rgba(151,173,176,.24);stroke-width:1.5"/>
+      <path d="M55 390 L155 374 L223 391 L301 376 L378 392 L464 375 L552 392 L636 374 L745 389" style="fill:none;stroke:rgba(151,173,176,.36);stroke-width:1.5"/>
+      <path d="M112 410 L132 382 L148 410 M129 410 L154 386 L171 410 M638 408 L657 380 L673 408 M659 408 L682 385 L698 408" style="fill:none;stroke:rgba(151,173,176,.56);stroke-width:2"/>
+      <path d="M270 325 L282 310 L294 325 M580 330 L592 315 L604 330" style="fill:none;stroke:rgba(151,173,176,.5);stroke-width:1.5"/>
+      <text class="art-label" x="92" y="465">1816 / ASH, COLD, AND A DIMMED SUN</text>
+      <text class="art-label" x="92" y="145">TAMBORA ERUPTION · CLIMATE SHOCK</text>
+    </svg>`;
+  }
+
   // Specific visuals for the stories where the concept is obvious.
   if (key.includes('stroop')) {
     return `<svg class="visual-svg" viewBox="0 0 800 520" role="img" aria-label="${label}">
@@ -153,7 +193,7 @@ export function visualSvg(
 
   // Fallback: deliberately varied geometric composition.
   const seed = [...key].reduce((n, c) => n + c.charCodeAt(0), 0);
-  const variant = seed % 4;
+  const variant = slug === 'the-bloop' ? 17 : slug === 'the-year-without-a-summer' ? 18 : seed % 30;
 
   const visuals = [
     `<rect class="visual-bg" x="0" y="0" width="800" height="520" rx="28"/>
