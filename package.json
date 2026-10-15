@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc --pretty false && node scripts/copy-static.mjs",
     "test": "npm run build && node scripts/test-content.mjs && node scripts/test-server.mjs",
+    "preview": "node scripts/spa-server.mjs",
     "test:browser": "node scripts/test-browser-harness.mjs",
     "test:all": "npm test && npm run test:browser"
   },

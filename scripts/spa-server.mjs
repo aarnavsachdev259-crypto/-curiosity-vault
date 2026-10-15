@@ -12,4 +12,5 @@ const server=http.createServer((req,res)=>{
   if(!fs.existsSync(file)||fs.statSync(file).isDirectory()) file=path.join(root,'index.html');
   fs.readFile(file,(err,data)=>{ if(err){res.writeHead(500); return res.end('Server error');} res.writeHead(200,{'Content-Type':mime[path.extname(file)]||'text/plain; charset=utf-8'}); res.end(data); });
 });
-server.listen(4173,'0.0.0.0');
+const port = Number(process.env.PORT || 4174);
+server.listen(port,'0.0.0.0',()=>console.log(`Curiosity Vault preview listening on http://localhost:${port}`));

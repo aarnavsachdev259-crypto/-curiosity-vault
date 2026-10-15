@@ -89,13 +89,30 @@ await ev("document.querySelector('.mobile-nav-trigger').click()");
 ok(await ev("document.querySelector('.mobile-nav-trigger').getAttribute('aria-expanded')==='true' && document.querySelector('#mobile-menu').classList.contains('open')"),'mobile menu did not open');
 
 // Responsive layout: actual Chromium layout metrics, not CSS inspection.
-for(const [w,h] of [[375,812],[390,844],[414,896],[1024,1366],[1280,900],[1440,900],[1920,1080]]){
+for(const [w,h] of [[320,700],[360,780],[375,812],[390,844],[402,874],[430,932],[768,1024],[1024,1366],[1280,900],[1440,900]]){
   await c('Emulation.setDeviceMetricsOverride',{width:w,height:h,deviceScaleFactor:1,mobile:w<600});await ev("window.__cvTestNavigate('/vault')");await sleep(55);
   const r=await ev(`(()=>({sw:document.documentElement.scrollWidth,iw:innerWidth,menu:getComputedStyle(document.querySelector('.mobile-nav-trigger')).display,nav:getComputedStyle(document.querySelector('.nav-links')).display}))()`);
   ok(r.sw<=r.iw+1,`horizontal overflow at ${w}: ${r.sw} > ${r.iw}`);if(w<600)ok(r.menu!=='none',`mobile menu missing at ${w}`);if(w>=1280)ok(r.nav!=='none',`desktop nav hidden at ${w}`);
+  const coverMetrics=await ev(`(()=>[...document.querySelectorAll('.story-visual')].map(host=>{const r=host.getBoundingClientRect(),svg=host.querySelector('svg'),s=svg.getBoundingClientRect(),caption=svg.querySelector('.art-label'),font=parseFloat(getComputedStyle(caption).fontSize)*s.width/800;return {width:r.width,height:r.height,svgWidth:s.width,svgHeight:s.height,captionSize:font,textFits:[...svg.querySelectorAll('text')].every(t=>{const b=t.getBBox();return b.x>=0&&b.y>=0&&b.x+b.width<=800&&b.y+b.height<=520})}}))()`);
+  ok(coverMetrics.length===30,`expected 30 covers at ${w}, got ${coverMetrics.length}`);
+  for(const [i,m] of coverMetrics.entries()){
+    ok(Math.abs(m.width/m.height-800/520)<0.03,`cover aspect ratio wrong at ${w}, card ${i+1}`);
+    ok(Math.abs(m.width-m.svgWidth)<2&&Math.abs(m.height-m.svgHeight)<2,`SVG does not fill its cover at ${w}, card ${i+1}`);
+    ok(m.captionSize>=9,`cover caption too small at ${w}, card ${i+1}: ${m.captionSize}px`);
+    ok(m.textFits,`cover text falls outside the SVG canvas at ${w}, card ${i+1}`);
+  }
+}
+
+await ev("window.__cvTestNavigate('/story/the-tardigrades')");
+for(const [w,h] of [[320,700],[360,780],[375,812],[390,844],[402,874],[430,932],[768,1024],[1024,1366],[1280,900],[1440,900]]){
+  await c('Emulation.setDeviceMetricsOverride',{width:w,height:h,deviceScaleFactor:1,mobile:w<600});
+  const artMetrics=await ev(`(()=>{const host=document.querySelector('.story-art-large'),svg=host.querySelector('svg'),r=host.getBoundingClientRect(),s=svg.getBoundingClientRect();return {width:r.width,height:r.height,svgWidth:s.width,svgHeight:s.height,scrollWidth:document.documentElement.scrollWidth,innerWidth}})()`);
+  ok(artMetrics.scrollWidth<=artMetrics.innerWidth+1,`story artwork caused horizontal overflow at ${w}`);
+  ok(Math.abs(artMetrics.width/artMetrics.height-800/520)<0.03,`large story artwork aspect ratio wrong at ${w}`);
+  ok(Math.abs(artMetrics.width-artMetrics.svgWidth)<2&&Math.abs(artMetrics.height-artMetrics.svgHeight)<2,`large story SVG does not fill its container at ${w}`);
 }
 
 await c('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});await ev("window.__cvTestNavigate('/')");await sleep(80);const mShot=await c('Page.captureScreenshot',{format:'png'});fs.writeFileSync('test-output-home-mobile.png',Buffer.from(mShot.data,'base64'));
 await c('Emulation.setDeviceMetricsOverride',{width:1440,height:900,deviceScaleFactor:1,mobile:false});await ev("window.__cvTestNavigate('/story/the-voynich-manuscript')");await sleep(80);const dShot=await c('Page.captureScreenshot',{format:'png'});fs.writeFileSync('test-output-story-desktop.png',Buffer.from(dShot.data,'base64'));
 
-ws.close();chrome.kill();if(errors.length)throw new Error(`Chromium exceptions: ${errors.join(' | ')}`);console.log('CHROMIUM UI HARNESS OK · 30 story renders + 10 quizzes + interactions + random drop + search/filter + save + rabbit hole + mobile menu + responsive layout');
+ws.close();chrome.kill();if(errors.length)throw new Error(`Chromium exceptions: ${errors.join(' | ')}`);console.log('CHROMIUM UI HARNESS OK · 30 story renders + 10 quizzes + interactions + random drop + search/filter + save + rabbit hole + mobile menu + responsive covers at 320–1440px');

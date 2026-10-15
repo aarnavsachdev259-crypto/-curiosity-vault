@@ -1,5 +1,6 @@
 import { stories } from '../dist/src/data/stories.js';
 import { quizzes } from '../dist/src/data/quizzes.js';
+import { visualSvg } from '../dist/src/components/Visual.js';
 
 const fail = (msg) => { console.error(`FAIL: ${msg}`); process.exitCode = 1; };
 const slugs = new Set(stories.map(s => s.slug));
@@ -18,6 +19,14 @@ for (const s of stories) {
   for (const src of s.sources) if (!/^https?:\/\//.test(src.url)) fail(`${s.slug}: invalid source URL ${src.url}`);
   for (const ref of [...s.rabbitHole, ...s.related]) if (!slugs.has(ref)) fail(`${s.slug}: broken story reference ${ref}`);
 }
+const coverArtwork = stories.map(story => visualSvg(story.visual, story.title, story.slug)
+  .replace(/aria-label="[^"]*"/, 'aria-label=""')
+  .replace(/data-kind="[^"]*"/, 'data-kind=""')
+  .replace(/<text class="art-label"[^>]*>.*?<\/text>/, ''));
+if (new Set(coverArtwork).size !== stories.length) fail('story cover artwork is not visually distinct');
+const categoryArtwork = ['psych','science','internet','history','mystery','coincidence','strange']
+  .map(kind => visualSvg(kind).replace(/data-kind="[^"]*"/, 'data-kind=""').replace(/<text class="art-label"[^>]*>.*?<\/text>/, ''));
+if (new Set(categoryArtwork).size !== categoryArtwork.length) fail('category fallback artwork is not visually distinct');
 for (const q of quizzes) {
   if (!q.questions?.length) fail(`${q.id}: no questions`);
   for (const [i, item] of q.questions.entries()) {

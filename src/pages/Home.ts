@@ -16,7 +16,7 @@ export function renderHome() {
 
     <section class="section"><div class="container">
       <div class="section-head"><div><span class="kicker">Today’s drop</span><h2 class="display">One story to derail your next five minutes.</h2></div><a href="/vault">SEE ALL →</a></div>
-      <div class="featured"><div class="featured-copy"><span class="kicker">${feature.category} · ${feature.minutes} min</span><h3 class="display">${feature.title}</h3><p>${feature.description}</p><div class="actions"><a class="btn btn-primary" href="/story/${feature.slug}">OPEN STORY →</a></div></div><a href="/story/${feature.slug}" class="featured-art art-${feature.visual}">${visualSvg(feature.visual, 'SIGNAL DETECTED')}</a></div>
+      <div class="featured"><div class="featured-copy"><span class="kicker">${feature.category} · ${feature.minutes} min</span><h3 class="display">${feature.title}</h3><p>${feature.description}</p><div class="actions"><a class="btn btn-primary" href="/story/${feature.slug}">OPEN STORY →</a></div></div><a href="/story/${feature.slug}" class="featured-art art-${feature.visual}">${visualSvg(feature.visual, feature.title, feature.slug)}</a></div>
     </div></section>
 
     <section class="section-tight"><div class="container">
